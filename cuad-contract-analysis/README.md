@@ -1,10 +1,10 @@
 # CUAD Contract Analysis Pipeline
 
-## 📋 Overview
+##  Overview
 
 This project implements an automated pipeline for analyzing legal contracts using Large Language Models (LLMs). It processes contracts from the CUAD (Contract Understanding Atticus Dataset), extracts key clauses, and generates comprehensive summaries.
 
-## 🎯 Features
+## Features
 
 - **Multi-format PDF Text Extraction**: Supports PyPDF2, pdfplumber, and PyMuPDF with automatic best-method selection
 - **LLM-Powered Clause Extraction**: Uses GPT-4/Claude to identify:
@@ -16,7 +16,7 @@ This project implements an automated pipeline for analyzing legal contracts usin
 - **Semantic Search** (Bonus): Implements vector embeddings for clause similarity search
 - **Robust Error Handling**: Automatic retries and fallback mechanisms
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 cuad-contract-analysis/
@@ -47,45 +47,32 @@ cuad-contract-analysis/
     └── results.json          # Extracted data in JSON format
 ```
 
-## 🚀 Installation
-
-### Prerequisites
-
-- Python 3.8 or higher
-- OpenAI API key or Anthropic API key
-
 ### Setup Steps
 
-1. **Clone the repository**
-```bash
-git clone <your-repo-url>
-cd cuad-contract-analysis
-```
-
-2. **Create virtual environment**
+1. **Create virtual environment**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 ```
 
-3. **Install dependencies**
+2. **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Set up environment variables**
+3. **Set up environment variables**
 ```bash
 cp .env.example .env
 # Edit .env and add your API keys
 ```
 
-5. **Download CUAD dataset**
+4. **Download CUAD dataset**
 ```bash
 # Download from: https://zenodo.org/record/4595826/files/CUAD_v1.zip
 # Extract PDF files to data/raw/ directory
 ```
 
-## 🔧 Configuration
+##  Configuration
 
 Edit `config.py` to customize:
 
@@ -101,7 +88,7 @@ LLM_MODEL = "gpt-4o-mini"
 NUM_CONTRACTS = 50
 ```
 
-## 📊 Usage
+##  Usage
 
 ### Command Line
 
@@ -125,13 +112,8 @@ python main.py --provider anthropic --model claude-3-haiku-20240307
 python main.py --enable-semantic-search
 ```
 
-### Jupyter Notebook
 
-```bash
-jupyter notebook notebook.ipynb
-```
-
-## 📤 Output
+##  Output
 
 The pipeline generates two output files:
 
@@ -155,7 +137,7 @@ CONTRACT_001,"This is a Software License Agreement...",
 ]
 ```
 
-## 🏗️ Solution Architecture
+##  Solution Architecture
 
 ### Pipeline Flow
 
@@ -220,7 +202,7 @@ CONTRACT_001,"This is a Software License Agreement...",
 └─────────────────────────────────────────────────────────┘
 ```
 
-## 🎓 Approach Explanation
+##  Approach Explanation
 
 ### 1. Multi-Method PDF Extraction
 To handle varying PDF quality, we implement three extraction libraries and automatically select the best result based on:
@@ -241,7 +223,6 @@ To handle varying PDF quality, we implement three extraction libraries and autom
 3. Extracting precise text
 4. Validating completeness
 
-**Structured Output**: We enforce consistent output formats to ensure reliable parsing and validation.
 
 ### 3. Handling Long Documents
 
@@ -251,7 +232,7 @@ Legal contracts often exceed LLM context windows. Our solution:
 - Aggregates results from multiple chunks
 - Prioritizes most comprehensive extractions
 
-### 4. Semantic Search Implementation (Bonus)
+### 4. Semantic Search Implementation
 
 We use Sentence Transformers to:
 1. Generate embeddings for extracted clauses
@@ -259,7 +240,7 @@ We use Sentence Transformers to:
 3. Enable similarity queries like "Find all contracts with uncapped liability"
 4. Support comparative analysis across contracts
 
-## 📈 Evaluation Criteria Addressed
+##  Evaluation Criteria Addressed
 
 ### ✅ Accuracy
 - Few-shot prompting improves clause detection
@@ -290,50 +271,3 @@ We use Sentence Transformers to:
 - Comparative analysis capabilities
 - Model-agnostic design (OpenAI/Anthropic/Local)
 
-## 🧪 Testing
-
-Run basic tests:
-```bash
-python -m pytest tests/
-```
-
-Test on single contract:
-```bash
-python main.py --test-mode --contract-path data/raw/sample.pdf
-```
-
-## 🔍 Example Results
-
-Sample output for a Software License Agreement:
-
-**Summary (142 words):**
-> "This Software License Agreement establishes terms between TechCorp Inc. and Client Co. for use of proprietary software. The agreement grants Client a non-exclusive, non-transferable license for internal business use only. Key obligations include: TechCorp must provide software updates and technical support within 24 hours; Client must pay annual fees of $50,000 and maintain confidentiality of source code. Notable risks include: TechCorp liability is limited to fees paid in preceding 12 months; either party may terminate with 90 days notice; Client faces liquidated damages of $100,000 for unauthorized distribution. The agreement includes audit rights, restricts reverse engineering, and requires compliance with export regulations. Duration is 3 years with automatic renewal unless terminated. Disputes are subject to binding arbitration under Delaware law."
-
-**Termination Clause:**
-> "Either party may terminate this Agreement upon ninety (90) days prior written notice to the other party. TechCorp may terminate immediately if Client breaches confidentiality or payment obligations and fails to cure within thirty (30) days of written notice."
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
-
-## 📄 License
-
-MIT License - See LICENSE file for details
-
-## 📧 Contact
-
-For questions or issues, please open a GitHub issue or contact [your-email@example.com]
-
-## 🙏 Acknowledgments
-
-- CUAD Dataset by The Atticus Project
-- OpenAI and Anthropic for LLM APIs
-- Open-source PDF processing libraries
-
----
-
-**Note**: This project is for educational purposes as part of a take-home assessment. The code demonstrates best practices in LLM-based document processing but should be thoroughly tested before production use.
